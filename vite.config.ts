@@ -23,6 +23,7 @@ const manifest = defineManifest({
     // },
     default_title: 'Tab Dance',
   },
+  options_page: 'src/options-page.html',
   commands: {
     random_tab: {
       suggested_key: {
@@ -35,7 +36,7 @@ const manifest = defineManifest({
     service_worker: 'src/background.ts',
     type: 'module',
   },
-  permissions: [],
+  permissions: ['storage'],
 })
 
 export default defineConfig({

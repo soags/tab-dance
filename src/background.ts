@@ -1,11 +1,25 @@
-chrome.action.onClicked.addListener(() => {
-  randomTab()
-})
+import { isAction } from './action'
+
+chrome.action.onClicked.addListener(async () => {})
 
 chrome.commands.onCommand.addListener((command) => {
+  if (!isAction(command)) {
+    console.error('Invalid action:', command)
+    return
+  }
+
   switch (command) {
-    case 'random_tab':
-      randomTab()
+    case 'open':
+      console.log('Action: open')
+      break
+    case 'open/same-domain':
+      console.log('Action: open/same-domain')
+      break
+    case 'close-and-open':
+      console.log('Action: close-and-open')
+      break
+    case 'close-and-open/same-domain':
+      console.log('Action: close-and-open/same-domain')
       break
   }
 })
@@ -13,20 +27,6 @@ chrome.commands.onCommand.addListener((command) => {
 chrome.tabs.onUpdated.addListener(updateBadge)
 
 chrome.tabs.onActivated.addListener(updateBadge)
-
-async function randomTab() {
-  try {
-    const tabs = await chrome.tabs.query({ lastFocusedWindow: true })
-    if (tabs.length < 2) return
-
-    const tab = tabs[Math.floor(Math.random() * tabs.length)]
-    if (tab?.id) {
-      chrome.tabs.update(tab.id, { active: true })
-    }
-  } catch (error) {
-    console.error('Error opening a random tab:', error)
-  }
-}
 
 async function updateBadge() {
   const tabs = await chrome.tabs.query({ currentWindow: true })

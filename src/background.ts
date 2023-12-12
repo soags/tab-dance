@@ -1,25 +1,24 @@
-import { isAction } from './action'
+import { closeAndOpenRandomTab } from './commands/closeAndOpenRandomTab'
+import { openRandomTab } from './commands/openRandomTab'
 
 chrome.action.onClicked.addListener(async () => {})
 
 chrome.commands.onCommand.addListener((command) => {
-  if (!isAction(command)) {
-    console.error('Invalid action:', command)
-    return
-  }
-
   switch (command) {
-    case 'open':
-      console.log('Action: open')
+    case 'open_random_tab':
+      openRandomTab(false)
       break
-    case 'open/same-domain':
-      console.log('Action: open/same-domain')
+    case 'open_random_tab_same_domain':
+      openRandomTab(true)
       break
-    case 'close-and-open':
-      console.log('Action: close-and-open')
+    case 'close_and_open_random_tab':
+      closeAndOpenRandomTab(false)
       break
-    case 'close-and-open/same-domain':
-      console.log('Action: close-and-open/same-domain')
+    case 'close_and_open_random_tab_same_domain':
+      closeAndOpenRandomTab(true)
+      break
+    default:
+      console.error('Invalid action:', command)
       break
   }
 })

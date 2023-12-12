@@ -25,11 +25,29 @@ const manifest = defineManifest({
   },
   options_page: 'src/options-page.html',
   commands: {
-    random_tab: {
+    open_random_tab: {
       suggested_key: {
         default: 'Alt+R',
       },
       description: 'Open a random tab',
+    },
+    open_random_tab_same_domain: {
+      suggested_key: {
+        default: 'Alt+Shift+R',
+      },
+      description: 'Open a random tab from the same domain',
+    },
+    close_and_open_random_tab: {
+      suggested_key: {
+        default: 'Alt+W',
+      },
+      description: 'Close and open a random tab',
+    },
+    close_and_open_random_tab_same_domain: {
+      suggested_key: {
+        default: 'Alt+Shift+W',
+      },
+      description: 'Close and open a random tab from the same domain',
     },
   },
   background: {

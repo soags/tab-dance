@@ -6,7 +6,7 @@ const { version } = packageJson
 
 const manifest = defineManifest({
   manifest_version: 3,
-  name: 'Tab Dance',
+  name: 'Tab Roulette',
   description: '',
   version: version,
   version_name: version,
@@ -22,14 +22,13 @@ const manifest = defineManifest({
     //   '128': 'public/icon-128.png',
     // },
     default_title: 'Tab Dance',
-    default_popup: 'src/popup.html',
   },
   commands: {
-    open_random_tab: {
+    random_tab: {
       suggested_key: {
         default: 'Alt+R',
       },
-      description: 'Open a random tab from window.',
+      description: 'Open a random tab',
     },
   },
   background: {

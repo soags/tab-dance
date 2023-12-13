@@ -1,30 +1,54 @@
-import { closeAndOpenRandomTab } from './commands/closeAndOpenRandomTab'
-import { openRandomTab } from './commands/openRandomTab'
+import { openRandomTab } from './tabs/openRandomTab'
 
+// Click
 chrome.action.onClicked.addListener(async () => {})
 
+// Hotkeys
 chrome.commands.onCommand.addListener((command) => {
   switch (command) {
     case 'open_random_tab':
-      openRandomTab(false)
+      openRandomTab(false, false)
       break
     case 'open_random_tab_same_domain':
-      openRandomTab(true)
+      openRandomTab(true, false)
       break
     case 'close_and_open_random_tab':
-      closeAndOpenRandomTab(false)
+      openRandomTab(false, true)
       break
     case 'close_and_open_random_tab_same_domain':
-      closeAndOpenRandomTab(true)
-      break
-    default:
-      console.error('Invalid action:', command)
+      openRandomTab(true, true)
       break
   }
 })
 
-chrome.tabs.onUpdated.addListener(updateBadge)
+// Context menu
+chrome.runtime.onInstalled.addListener(function () {
+  chrome.contextMenus.create({
+    title: 'Close Current Tab',
+    type: 'checkbox',
+    contexts: ['action'],
+    id: 'close_current_tab',
+  })
 
+  chrome.contextMenus.create({
+    title: 'Same domain',
+    type: 'checkbox',
+    contexts: ['action'],
+    id: 'same_domain',
+  })
+})
+
+chrome.contextMenus.onClicked.addListener((data) => {
+  switch (data.menuItemId) {
+    case 'close_current_tab':
+      break
+    case 'same_domain':
+      break
+  }
+})
+
+// Bedge
+chrome.tabs.onUpdated.addListener(updateBadge)
 chrome.tabs.onActivated.addListener(updateBadge)
 
 async function updateBadge() {
